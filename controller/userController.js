@@ -37,7 +37,7 @@ passwordHash = await bcrypt.hash(password, saltRounds);
   });
 
   if (newUser?.id) {
-    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET??"uggjjh", {
+    const token = jwt.sign({ id: newUser.id, role:newUser.role }, process.env.JWT_SECRET??"uggjjh", {
       expiresIn: '1h',
     });
    const alluser = await prisma.user.findMany()
@@ -103,7 +103,7 @@ export const login = async (req, res) => {
             //         console.log("Email sent:", info.response);
             //     }
             // });
-            const token = jwt.sign({id:findUser.id},process.env.JWT_SECRET??"uggjjh",{expiresIn:"1h"})    
+            const token = jwt.sign({id:findUser.id,role:findUser?.role},process.env.JWT_SECRET??"uggjjh",{expiresIn:"30m"})    
               return res.json({
                 status: 200,
                 message: "Email and password is right Taken . please another email.",
@@ -115,3 +115,11 @@ export const login = async (req, res) => {
     }   
     return res.json({ status: 401, msg: "User not found" });
   };
+
+export const listOFUser = async(req,res)=>{
+    const users = await prisma.user.findMany();
+    res.json({
+      data:users ,
+      total_count : users.length
+    })
+}

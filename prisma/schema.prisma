@@ -14,8 +14,38 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  email   String   @unique
-  name    String?
-  password String?
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String?
+  password      String?
+  age           Int?
+  mobileNo      String?
+  profileImgUri String?
+  role          USER_TYPE      @default(user)
+  subscription  Subscription[]
+}
+
+model Plan {
+  id           String         @id @default(uuid())
+  name         String
+  createdAt    DateTime       @default(now())
+  price        Int
+  subscription Subscription[]
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  member    User     @relation(fields: [userId], references: [id])
+  userId    String
+  plan      Plan     @relation(fields: [planId], references: [id])
+  planId    String
+  createdAt DateTime @default(now())
+  startDate DateTime @default(now())
+  endDate   DateTime
+}
+
+enum USER_TYPE {
+  admin
+  user
+  staff
 }

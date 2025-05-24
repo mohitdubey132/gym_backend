@@ -1,5 +1,6 @@
 import express from 'express'
-import userCreatev1,{login } from '../../controller/userController.js'
+import userCreatev1,{login , listOFUser } from '../../controller/userController.js'
+import {authorizeUser ,authorizeRoles} from '../../middleware/auth.js'
 const router = express.Router()
 
 router.get('/helo',(req,res,next)=>{
@@ -12,4 +13,5 @@ router.get('/helo',(req,res,next)=>{
 })
 router.post("/user",userCreatev1)
 router.post('/login',login)
+router.post("/verifyToken",authorizeUser,authorizeRoles("adin","staff"),listOFUser)
 export default router;
