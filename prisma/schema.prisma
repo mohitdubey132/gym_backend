@@ -21,16 +21,17 @@ model User {
   age           Int?
   mobileNo      String?
   profileImgUri String?
-  role          USER_TYPE      @default(user)
+  user_role     USER_TYPE      @default(user)
   subscription  Subscription[]
 }
 
 model Plan {
   id           String         @id @default(uuid())
-  name         String
+  name         String         @unique()
   createdAt    DateTime       @default(now())
   price        Int
   subscription Subscription[]
+  duration     Int            @default(30)
 }
 
 model Subscription {
@@ -48,4 +49,8 @@ enum USER_TYPE {
   admin
   user
   staff
+}
+
+enum PLAN_DURATION {
+  M
 }

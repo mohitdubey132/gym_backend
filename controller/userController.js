@@ -103,7 +103,7 @@ export const login = async (req, res) => {
             //         console.log("Email sent:", info.response);
             //     }
             // });
-            const token = jwt.sign({id:findUser.id,role:findUser?.role},process.env.JWT_SECRET??"uggjjh",{expiresIn:"30m"})    
+            const token = jwt.sign({id:findUser.id,role:findUser?.user_role},process.env.JWT_SECRET??"uggjjh",{expiresIn:"30m"})    
               return res.json({
                 status: 200,
                 message: "Email and password is right Taken . please another email.",
