@@ -42,7 +42,7 @@ model Subscription {
   planId    String
   createdAt DateTime @default(now())
   startDate DateTime @default(now())
-  endDate   DateTime
+  endDate   DateTime?    
 }
 
 enum USER_TYPE {
@@ -51,6 +51,3 @@ enum USER_TYPE {
   staff
 }
 
-enum PLAN_DURATION {
-  M
-}

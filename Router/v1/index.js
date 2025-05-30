@@ -1,7 +1,8 @@
 import express from 'express';
 import {planCreate , plans,updatePlans} from "../../controller/planController.js"
 import userCreatev1,{login , listOFUser } from '../../controller/userController.js'
-import {authorizeUser ,authorizeRoles} from '../../middleware/auth.js'
+import {authorizeUser ,authorizeRoles} from '../../middleware/auth.js';
+import {subscription} from '../../controller/subscriptionContraoller.js'
 const router = express.Router()
 
 router.get('/helo',(req,res,next)=>{
@@ -18,4 +19,5 @@ router.post("/verifyToken",authorizeUser,authorizeRoles("adin","staff"),listOFUs
 router.post("/plan",authorizeUser,authorizeRoles("admin"),planCreate)
 router.get("/plan",plans)
 router.put('/plan',authorizeUser,authorizeRoles("admin"),updatePlans)
+router.post("/subscripthion",authorizeUser,authorizeRoles("admin"),subscription)
 export default router;

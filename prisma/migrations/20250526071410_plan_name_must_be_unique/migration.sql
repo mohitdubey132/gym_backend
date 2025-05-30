@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "PLAN_DURATION" AS ENUM ('M');
+
+-- AlterTable
+ALTER TABLE "Plan" ADD COLUMN     "duration" INTEGER NOT NULL DEFAULT 30;
